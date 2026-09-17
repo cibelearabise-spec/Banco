@@ -3,759 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Riko Pay - Aplicativo de Pagamentos</title>
-    <!-- Tailwind CSS v4 via CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- FontAwesome para ícones -->
+    <title>SunoPlayer - Music App</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
     </style>
 </head>
-<body class="bg-slate-900 flex flex-col items-center justify-center min-h-screen py-10 px-4">
+<body class="bg-slate-950 flex justify-center items-center min-h-screen py-10">
 
-    <!-- Container Principal do Smartphone -->
-    <div class="w-full max-w-md bg-slate-50 rounded-[40px] shadow-2xl overflow-hidden border-[8px] border-slate-800 flex flex-col relative" style="height: 840px;">
+    <!-- Container do Aparelho (Simulando Smartphone) -->
+    <div class="relative w-[390px] h-[844px] bg-slate-900 text-white rounded-[50px] shadow-2xl overflow-hidden border-[10px] border-slate-800 flex flex-col justify-between">
         
-        <!-- Header / Status Bar -->
-        <div class="px-6 pt-4 pb-2 flex justify-between items-center text-xs font-semibold text-slate-800 bg-white z-20">
+        <!-- Status Bar -->
+        <div class="px-7 pt-4 pb-2 flex justify-between items-center text-xs font-semibold tracking-wide z-20">
             <span>9:41</span>
-            <div class="flex items-center space-x-1.5">
+            <div class="flex items-center space-x-2">
                 <i class="fa-solid fa-signal text-[10px]"></i>
                 <i class="fa-solid fa-wifi text-[10px]"></i>
                 <i class="fa-solid fa-battery-full text-sm"></i>
             </div>
         </div>
 
-        <!-- CONTEÚDO DAS TELAS -->
-        <div id="app-container" class="flex-1 overflow-y-auto pb-24">
-            
-            <!-- TELA 1: HOME (Início) -->
-            <div id="screen-home" class="screen-view p-6 space-y-6">
-                <!-- Perfil e Notificação -->
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center space-x-3">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=faces" alt="Avatar" class="w-10 h-10 rounded-full object-cover">
-                        <div>
-                            <p class="text-xs text-slate-400">Bom dia 👋</p>
-                            <h2 class="text-sm font-bold text-slate-800">Olá, Tega</h2>
-                        </div>
-                    </div>
-                    <button class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 relative hover:bg-slate-200 transition">
-                        <i class="fa-regular fa-bell text-sm"></i>
-                        <span class="absolute top-2 right-2 w-2 h-2 bg-blue-600 rounded-full"></span>
-                    </button>
-                </div>
+        <!-- CONTEÚDO DO APLICATIVO -->
+        <div class="relative flex-1 overflow-y-auto px-6 pb-28 pt-2 space-y-6">
 
-                <!-- Card de Saldo Disponível -->
-                <div class="bg-blue-600 text-white p-5 rounded-2xl shadow-lg shadow-blue-500/30 relative overflow-hidden">
-                    <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-blue-500/30 rounded-full blur-xl pointer-events-none"></div>
-                    <div class="flex justify-between items-center mb-1">
-                        <span class="text-xs text-blue-100 font-medium">Saldo disponível</span>
-                        <div class="bg-blue-700/60 px-2.5 py-1 rounded-full text-[11px] font-medium flex items-center space-x-1">
-                            <span>BRL</span>
-                            <i class="fa-solid fa-chevron-down text-[9px]"></i>
-                        </div>
+            <!-- Header -->
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center font-bold text-sm">
+                        <i class="fa-solid fa-bolt"></i>
                     </div>
-                    <h1 class="text-2xl font-bold tracking-tight mb-3">R$ 24.850,<span class="text-lg opacity-80">75</span></h1>
-                    <div class="bg-blue-700/40 py-1.5 px-3 rounded-lg inline-flex items-center space-x-2 text-[11px] tracking-wide">
-                        <span class="text-blue-200">CONTA RIKO:</span>
-                        <span class="font-mono">02378460-2</span>
-                    </div>
+                    <h1 class="text-base font-bold tracking-tight">SunoPlayer</h1>
                 </div>
-
-                <!-- Ações Rápidas -->
-                <div class="grid grid-cols-4 gap-3 text-center">
-                    <button onclick="switchScreen('screen-send')" class="flex flex-col items-center group">
-                        <div class="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center shadow-md shadow-blue-600/20 group-hover:scale-105 transition">
-                            <i class="fa-solid fa-plus text-sm"></i>
-                        </div>
-                        <span class="text-[11px] font-medium text-slate-600 mt-1.5">Depositar</span>
-                    </button>
-                    <button onclick="switchScreen('screen-send')" class="flex flex-col items-center group">
-                        <div class="w-12 h-12 rounded-2xl bg-white text-slate-700 border border-slate-100 flex items-center justify-center shadow-sm group-hover:scale-105 transition">
-                            <i class="fa-solid fa-paper-plane text-sm"></i>
-                        </div>
-                        <span class="text-[11px] font-medium text-slate-600 mt-1.5">Enviar</span>
-                    </button>
-                    <button onclick="alert('Funcionalidade de Contas em breve!')" class="flex flex-col items-center group">
-                        <div class="w-12 h-12 rounded-2xl bg-white text-slate-700 border border-slate-100 flex items-center justify-center shadow-sm group-hover:scale-105 transition">
-                            <i class="fa-solid fa-lightbulb text-sm"></i>
-                        </div>
-                        <span class="text-[11px] font-medium text-slate-600 mt-1.5">Contas</span>
-                    </button>
-                    <button onclick="switchScreen('screen-profile')" class="flex flex-col items-center group">
-                        <div class="w-12 h-12 rounded-2xl bg-white text-slate-700 border border-slate-100 flex items-center justify-center shadow-sm group-hover:scale-105 transition">
-                            <i class="fa-solid fa-ellipsis text-sm"></i>
-                        </div>
-                        <span class="text-[11px] font-medium text-slate-600 mt-1.5">Mais</span>
-                    </button>
-                </div>
-
-                <!-- Seção de Atividades Recentes -->
-                <div>
-                    <div class="flex justify-between items-center mb-3">
-                        <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Recentes</h3>
-                        <button onclick="switchScreen('screen-analytics')" class="text-xs text-blue-600 font-semibold hover:underline">Ver tudo</button>
-                    </div>
-                    <div class="space-y-2.5">
-                        <div class="bg-white p-3.5 rounded-2xl flex items-center justify-between border border-slate-100 shadow-sm">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xs">ST</div>
-                                <div>
-                                    <h4 class="text-xs font-bold text-slate-800">Stripe Pagamentos</h4>
-                                    <p class="text-[10px] text-slate-400">Fatura 2094 · 07:02</p>
-                                </div>
-                            </div>
-                            <span class="text-xs font-bold text-emerald-600">+R$ 3.150,00</span>
-                        </div>
-                        <div class="bg-white p-3.5 rounded-2xl flex items-center justify-between border border-slate-100 shadow-sm">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center font-bold text-xs">AN</div>
-                                <div>
-                                    <h4 class="text-xs font-bold text-slate-800">Adaeze Nwachukwu</h4>
-                                    <p class="text-[10px] text-slate-400">Aluguel do estúdio · 09:14</p>
-                                </div>
-                            </div>
-                            <span class="text-xs font-bold text-rose-600">-R$ 420,00</span>
-                        </div>
-                    </div>
+                <div class="w-9 h-9 bg-slate-800 rounded-full flex items-center justify-center text-slate-300 text-sm">
+                    <i class="fa-solid fa-gear"></i>
                 </div>
             </div>
 
-            <!-- TELA 2: CARTÕES (Aba Inferior Cartões) -->
-            <div id="screen-cards" class="screen-view p-6 space-y-6 hidden">
-                <h2 class="text-base font-bold text-slate-800">Meus Cartões</h2>
-                <div class="bg-gradient-to-r from-blue-700 to-indigo-800 text-white p-6 rounded-3xl shadow-xl space-y-8 relative overflow-hidden">
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold tracking-wider text-sm">RIKO PAY</span>
-                        <i class="fa-solid fa-wifi text-lg opacity-80"></i>
-                    </div>
-                    <div class="space-y-1">
-                        <p class="text-xs text-blue-200">Número do Cartão</p>
-                        <p class="font-mono text-base tracking-widest">•••• •••• •••• 8821</p>
-                    </div>
-                    <div class="flex justify-between items-end text-xs">
-                        <div>
-                            <p class="text-[10px] text-blue-200">Titular</p>
-                            <p class="font-bold">TEGA ARABISE</p>
-                        </div>
-                        <div>
-                            <p class="text-[10px] text-blue-200">Validade</p>
-                            <p class="font-bold">09/28</p>
-                        </div>
-                        <i class="fa-brands fa-cc-mastercard text-2xl"></i>
+            <!-- Card Principal / Capa do Álbum em Destaque -->
+            <div class="relative bg-gradient-to-br from-purple-900 via-indigo-900 to-slate-900 p-6 rounded-3xl shadow-xl overflow-hidden border border-purple-500/20">
+                <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-purple-500/20 rounded-full blur-3xl"></div>
+                
+                <div class="w-full h-48 rounded-2xl overflow-hidden shadow-lg relative mb-4">
+                    <img id="current-cover" src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&w=600&q=80" alt="Album Art" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-3">
+                        <span class="bg-purple-600/80 backdrop-blur-md text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">AI Generated</span>
                     </div>
                 </div>
-                <div class="bg-white p-4 rounded-2xl border border-slate-100 space-y-3 shadow-sm">
-                    <div class="flex justify-between items-center">
-                        <span class="text-xs font-bold text-slate-800">Cartão Virtual</span>
-                        <span class="w-8 h-4 bg-blue-600 rounded-full relative cursor-pointer"><span class="w-3 h-3 bg-white rounded-full absolute right-0.5 top-0.5"></span></span>
+
+                <div class="space-y-1">
+                    <h2 id="current-title" class="text-lg font-extrabold truncate">Neon Future Beats</h2>
+                    <p id="current-artist" class="text-xs text-purple-200">Synthwave AI · Prompt: Upbeat cyberpunk melody</p>
+                </div>
+
+                <!-- Barra de Progresso -->
+                <div class="space-y-1.5 mt-5">
+                    <div class="w-full bg-slate-700/60 h-1.5 rounded-full overflow-hidden cursor-pointer">
+                        <div id="progress-bar" class="bg-purple-400 h-full w-1/3 transition-all duration-150"></div>
                     </div>
-                    <p class="text-[11px] text-slate-400">Use para compras online com mais segurança.</p>
+                    <div class="flex justify-between text-[10px] text-purple-300 font-medium">
+                        <span id="current-time">1:12</span>
+                        <span id="total-time">3:45</span>
+                    </div>
+                </div>
+
+                <!-- Controles de Reprodução -->
+                <div class="flex justify-around items-center mt-5 text-purple-200">
+                    <button onclick="toggleShuffle()" class="hover:text-white transition text-sm"><i class="fa-solid fa-shuffle"></i></button>
+                    <button onclick="prevTrack()" class="hover:text-white transition text-lg"><i class="fa-solid fa-backward-step"></i></button>
+                    <button onclick="togglePlay()" id="play-btn" class="w-14 h-14 bg-white text-slate-950 rounded-full flex items-center justify-center text-xl shadow-lg hover:scale-105 transition">
+                        <i id="play-icon" class="fa-solid fa-play ml-0.5"></i>
+                    </button>
+                    <button onclick="nextTrack()" class="hover:text-white transition text-lg"><i class="fa-solid fa-forward-step"></i></button>
+                    <button onclick="toggleRepeat()" class="hover:text-white transition text-sm"><i class="fa-solid fa-repeat"></i></button>
                 </div>
             </div>
 
-            <!-- TELA 3: QR CODE / SCANNER (Botão Central) -->
-            <div id="screen-scan" class="screen-view p-6 space-y-6 text-center hidden flex flex-col items-center justify-center h-full">
-                <div class="w-48 h-48 border-2 border-dashed border-blue-500 rounded-3xl flex items-center justify-center bg-blue-50/50 relative mb-4">
-                    <i class="fa-solid fa-qrcode text-6xl text-blue-600 animate-pulse"></i>
+            <!-- Lista de Faixas Recentes (Playlist) -->
+            <div>
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="text-sm font-bold text-slate-200">Your AI Creations</h3>
+                    <span class="text-xs text-purple-400 font-semibold cursor-pointer">See all</span>
                 </div>
-                <h2 class="text-base font-bold text-slate-800">Escanear QR Code Pix</h2>
-                <p class="text-xs text-slate-400 max-w-xs">Aponte a câmera para o código QR do destinatário ou estabelecimento para pagar instantaneamente.</p>
-                <button onclick="switchScreen('screen-home')" class="mt-4 bg-slate-200 text-slate-700 px-6 py-2.5 rounded-xl text-xs font-semibold">Voltar ao Início</button>
-            </div>
 
-            <!-- TELA 4: EXTRATO / ANALYTICS (Aba Extrato) -->
-            <div id="screen-analytics" class="screen-view p-6 space-y-6 hidden">
-                <h2 class="text-base font-bold text-slate-800">Extrato Consolidado</h2>
-                <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm space-y-2">
-                    <p class="text-xs text-slate-400">Entradas deste mês</p>
-                    <h3 class="text-xl font-bold text-emerald-600">+R$ 4.400,30</h3>
-                </div>
-                <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm space-y-2">
-                    <p class="text-xs text-slate-400">Saídas deste mês</p>
-                    <h3 class="text-xl font-bold text-rose-600">-R$ 420,00</h3>
-                </div>
-                <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider pt-2">Histórico Completo</h3>
                 <div class="space-y-2.5">
-                    <div class="bg-white p-3 rounded-xl flex justify-between items-center border border-slate-100 text-xs">
-                        <div>
-                            <p class="font-bold text-slate-800">Stripe Pagamentos</p>
-                            <span class="text-[10px] text-slate-400">Hoje</span>
-                        </div>
-                        <span class="font-bold text-emerald-600">+R$ 3.150,00</span>
-                    </div>
-                    <div class="bg-white p-3 rounded-xl flex justify-between items-center border border-slate-100 text-xs">
-                        <div>
-                            <p class="font-bold text-slate-800">Adaeze Nwachukwu</p>
-                            <span class="text-[10px] text-slate-400">Hoje</span>
-                        </div>
-                        <span class="font-bold text-rose-600">-R$ 420,00</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TELA 5: PERFIL (Aba Perfil) -->
-            <div id="screen-profile" class="screen-view p-6 space-y-6 hidden">
-                <div class="flex items-center space-x-4">
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=faces" class="w-16 h-16 rounded-full object-cover">
-                    <div>
-                        <h2 class="text-sm font-bold text-slate-800">Tega Arabise</h2>
-                        <p class="text-xs text-slate-400">tega@rikopay.com.br</p>
-                    </div>
-                </div>
-                <div class="bg-white rounded-2xl border border-slate-100 overflow-hidden text-xs shadow-sm">
-                    <div class="p-3.5 border-b border-slate-100 flex justify-between items-center cursor-pointer hover:bg-slate-50">
-                        <span class="font-semibold text-slate-700">Dados Pessoais</span>
-                        <i class="fa-solid fa-chevron-right text-[10px] text-slate-300"></i>
-                    </div>
-                    <div class="p-3.5 border-b border-slate-100 flex justify-between items-center cursor-pointer hover:bg-slate-50">
-                        <span class="font-semibold text-slate-700">Segurança e Senha</span>
-                        <i class="fa-solid fa-chevron-right text-[10px] text-slate-300"></i>
-                    </div>
-                    <div class="p-3.5 flex justify-between items-center cursor-pointer hover:bg-slate-50 text-rose-600">
-                        <span class="font-semibold">Sair da Conta</span>
-                        <i class="fa-solid fa-right-from-bracket text-[10px]"></i>
-                    </div>
-                </div>
-            </div>
-
-            <!-- FLUXO DE ENVIO: ENVIAR DINHEIRO (Busca/Contatos) -->
-            <div id="screen-send" class="screen-view p-6 space-y-6 hidden">
-                <div class="flex items-center space-x-3">
-                    <button onclick="switchScreen('screen-home')" class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600">
-                        <i class="fa-solid fa-chevron-left text-xs"></i>
-                    </button>
-                    <h2 class="text-sm font-bold text-slate-800">Enviar Dinheiro</h2>
-                </div>
-
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
-                        <i class="fa-solid fa-magnifying-glass text-xs"></i>
-                    </span>
-                    <input type="text" placeholder="Nome, @tag ou ID da carteira" class="w-full bg-white border border-slate-200 rounded-xl py-2.5 pl-10 pr-4 text-xs text-slate-700 focus:outline-none">
-                </div>
-
-                <div>
-                    <p class="text-[11px] font-semibold text-slate-400 mb-2.5">Contatos recentes</p>
-                    <div class="space-y-2">
-                        <div onclick="switchScreen('screen-amount')" class="bg-white p-3 rounded-2xl flex items-center justify-between border border-slate-100 shadow-sm cursor-pointer hover:border-blue-300 transition">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-9 h-9 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center font-bold text-xs">AN</div>
-                                <div>
-                                    <h4 class="text-xs font-bold text-slate-800">Adaeze Nwachukwu</h4>
-                                    <p class="text-[10px] text-slate-400">@adaeze_n</p>
-                                </div>
-                            </div>
-                            <i class="fa-solid fa-chevron-right text-[10px] text-slate-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- FLUXO DE ENVIO: DIGITAR VALOR -->
-            <div id="screen-amount" class="screen-view p-6 space-y-4 hidden flex flex-col justify-between" style="min-height: 700px;">
-                <div>
-                    <div class="flex items-center space-x-3 mb-4">
-                        <button onclick="switchScreen('screen-send')" class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600">
-                            <i class="fa-solid fa-chevron-left text-xs"></i>
-                        </button>
-                        <h2 class="text-sm font-bold text-slate-800">Digite o Valor</h2>
-                    </div>
-                    <div class="text-center space-y-2 pt-6">
-                        <h1 class="text-3xl font-extrabold text-slate-950">R$ 1.250,00</h1>
-                        <p class="text-[11px] text-slate-400">Saldo disponível · R$ 24.850,75</p>
-                    </div>
-                </div>
-                <button onclick="switchScreen('screen-review')" class="w-full bg-blue-600 text-white font-semibold py-3.5 rounded-2xl text-xs shadow-md">
-                    Continuar
-                </button>
-            </div>
-
-            <!-- FLUXO DE ENVIO: REVISAR -->
-            <div id="screen-review" class="screen-view p-6 space-y-6 hidden">
-                <div class="flex items-center space-x-3">
-                    <button onclick="switchScreen('screen-amount')" class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600">
-                        <i class="fa-solid fa-chevron-left text-xs"></i>
-                    </button>
-                    <h2 class="text-sm font-bold text-slate-800">Revisar Transferência</h2>
-                </div>
-                <div class="bg-white border border-slate-100 rounded-2xl p-4 space-y-3 text-xs shadow-sm">
-                    <div class="flex justify-between text-slate-500">
-                        <span>Valor</span>
-                        <span class="font-bold text-slate-800">R$ 1.250,00</span>
-                    </div>
-                    <div class="flex justify-between text-slate-500">
-                        <span>Taxa</span>
-                        <span class="font-semibold text-emerald-600">Grátis</span>
-                    </div>
-                </div>
-                <button onclick="switchScreen('screen-success')" class="w-full bg-blue-600 text-white font-semibold py-3.5 rounded-2xl text-xs">
-                    Confirmar e Enviar ✈️
-                </button>
-            </div>
-
-            <!-- FLUXO DE ENVIO: SUCESSO -->
-            <div id="screen-success" class="screen-view p-6 space-y-6 text-center hidden">
-                <div class="pt-10 flex flex-col items-center">
-                    <div class="w-16 h-16 bg-emerald-500 text-white rounded-full flex items-center justify-center text-2xl mb-4 shadow-lg">
-                        <i class="fa-solid fa-check"></i>
-                    </div>
-                    <h2 class="text-base font-bold text-slate-800">Transferência Realizada!</h2>
-                    <h1 class="text-3xl font-extrabold text-slate-950 mt-2">R$ 1.250,00</h1>
-                </div>
-                <button onclick="switchScreen('screen-home')" class="w-full bg-blue-600 text-white font-semibold py-3 rounded-xl text-xs">
-                    Concluído
-                </button>
-            </div>
-
-        </div>
-
-        <!-- BARRA DE NAVEGAÇÃO INFERIOR FUNCIONAL -->
-        <div class="absolute bottom-0 inset-x-0 bg-white/95 backdrop-blur-md border-t border-slate-100 px-6 py-3 flex justify-between items-center text-xs text-slate-400 z-30">
-            <button onclick="switchScreen('screen-home')" id="nav-home" class="nav-btn flex flex-col items-center text-blue-600">
-                <i class="fa-solid fa-house text-sm"></i>
-                <span class="text-[10px] mt-1 font-medium">Início</span>
-            </button>
-            <button onclick="switchScreen('screen-cards')" id="nav-cards" class="nav-btn flex flex-col items-center hover:text-slate-700">
-                <i class="fa-regular fa-credit-card text-sm"></i>
-                <span class="text-[10px] mt-1">Cartões</span>
-            </button>
-            <button onclick="switchScreen('screen-scan')" id="nav-scan" class="relative -top-3">
-                <div class="w-11 h-11 bg-slate-900 text-white rounded-full flex items-center justify-center shadow-lg shadow-slate-900/40 hover:scale-105 transition">
-                    <i class="fa-solid fa-qrcode text-sm"></i>
-                </div>
-            </button>
-            <button onclick="switchScreen('screen-analytics')" id="nav-analytics" class="nav-btn flex flex-col items-center hover:text-slate-700">
-                <i class="fa-solid fa-chart-pie text-sm"></i>
-                <span class="text-[10px] mt-1">Extrato</span>
-            </button>
-            <button onclick="switchScreen('screen-profile')" id="nav-profile" class="nav-btn flex flex-col items-center hover:text-slate-700">
-                <i class="fa-regular fa-user text-sm"></i>
-                <span class="text-[10px] mt-1">Perfil</span>
-            </button>
-        </div>
-
-    </div>
-
-    <!-- SCRIPT DE NAVEGAÇÃO ENTRE TELAS -->
-    <script>
-        function switchScreen(screenId) {
-            // Esconde todas as telas
-            const screens = document.querySelectorAll('.screen-view');
-            screens.forEach(screen => {
-                screen.classList.add('hidden');
-            });
-            
-            // Mostra a tela alvo
-            const target = document.getElementById(screenId);
-            if (target) {
-                target.classList.remove('hidden');
-                document.getElementById('app-container').scrollTop = 0;
-            }
-
-            // Atualiza cor dos botões da barra inferior se for uma aba principal
-            const navButtons = document.querySelectorAll('.nav-btn');
-            navButtons.forEach(btn => btn.classList.remove('text-blue-600'));
-            navButtons.forEach(btn => btn.classList.add('text-slate-400'));
-
-            if(screenId === 'screen-home') document.getElementById('nav-home')?.classList.add('text-blue-600');
-            if(screenId === 'screen-cards') document.getElementById('nav-cards')?.classList.add('text-blue-600');
-            if(screenId === 'screen-analytics') document.getElementById('nav-analytics')?.classList.add('text-blue-600');
-            if(screenId === 'screen-profile') document.getElementById('nav-profile')?.classList.add('text-blue-600');
-        }
-    </script>
-</body>
-</html>                <div class="flex justify-between items-center">
-                    <div class="flex items-center space-x-3">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=faces" alt="Avatar" class="w-10 h-10 rounded-full object-cover">
-                        <div>
-                            <p class="text-xs text-slate-400">Bom dia 👋</p>
-                            <h2 class="text-sm font-bold text-slate-800">Olá, Tega</h2>
-                        </div>
-                    </div>
-                    <button class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 relative hover:bg-slate-200 transition">
-                        <i class="fa-regular fa-bell text-sm"></i>
-                        <span class="absolute top-2 right-2 w-2 h-2 bg-blue-600 rounded-full"></span>
-                    </button>
-                </div>
-
-                <!-- Card de Saldo Disponível -->
-                <div class="bg-blue-600 text-white p-5 rounded-2xl shadow-lg shadow-blue-500/30 relative overflow-hidden">
-                    <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-blue-500/30 rounded-full blur-xl pointer-events-none"></div>
-                    <div class="flex justify-between items-center mb-1">
-                        <span class="text-xs text-blue-100 font-medium">Saldo disponível</span>
-                        <div class="bg-blue-700/60 px-2.5 py-1 rounded-full text-[11px] font-medium flex items-center space-x-1">
-                            <span>BRL</span>
-                            <i class="fa-solid fa-chevron-down text-[9px]"></i>
-                        </div>
-                    </div>
-                    <h1 class="text-2xl font-bold tracking-tight mb-3">R$ 24.850,<span class="text-lg opacity-80">75</span></h1>
-                    <div class="bg-blue-700/40 py-1.5 px-3 rounded-lg inline-flex items-center space-x-2 text-[11px] tracking-wide">
-                        <span class="text-blue-200">CONTA RIKO:</span>
-                        <span class="font-mono">02378460-2</span>
-                    </div>
-                </div>
-
-                <!-- Ações Rápidas (Depositar, Enviar, Utilidades, Mais) -->
-                <div class="grid grid-cols-4 gap-3 text-center">
-                    <button onclick="switchScreen('screen-send')" class="flex flex-col items-center group">
-                        <div class="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center shadow-md shadow-blue-600/20 group-hover:scale-105 transition">
-                            <i class="fa-solid fa-plus text-sm"></i>
-                        </div>
-                        <span class="text-[11px] font-medium text-slate-600 mt-1.5">Depositar</span>
-                    </button>
-                    <button onclick="switchScreen('screen-send')" class="flex flex-col items-center group">
-                        <div class="w-12 h-12 rounded-2xl bg-white text-slate-700 border border-slate-100 flex items-center justify-center shadow-sm group-hover:scale-105 transition">
-                            <i class="fa-solid fa-paper-plane text-sm"></i>
-                        </div>
-                        <span class="text-[11px] font-medium text-slate-600 mt-1.5">Enviar</span>
-                    </button>
-                    <button class="flex flex-col items-center group">
-                        <div class="w-12 h-12 rounded-2xl bg-white text-slate-700 border border-slate-100 flex items-center justify-center shadow-sm group-hover:scale-105 transition">
-                            <i class="fa-solid fa-lightbulb text-sm"></i>
-                        </div>
-                        <span class="text-[11px] font-medium text-slate-600 mt-1.5">Contas</span>
-                    </button>
-                    <button class="flex flex-col items-center group">
-                        <div class="w-12 h-12 rounded-2xl bg-white text-slate-700 border border-slate-100 flex items-center justify-center shadow-sm group-hover:scale-105 transition">
-                            <i class="fa-solid fa-ellipsis text-sm"></i>
-                        </div>
-                        <span class="text-[11px] font-medium text-slate-600 mt-1.5">Mais</span>
-                    </button>
-                </div>
-
-                <!-- Seção de Atividades Recentes -->
-                <div>
-                    <div class="flex justify-between items-center mb-3">
-                        <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Recentes</h3>
-                        <a href="#" class="text-xs text-blue-600 font-semibold hover:underline">Ver tudo</a>
-                    </div>
-                    <div class="space-y-2.5">
-                        <!-- Transação 1 -->
-                        <div class="bg-white p-3.5 rounded-2xl flex items-center justify-between border border-slate-100 shadow-sm">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xs">ST</div>
-                                <div>
-                                    <h4 class="text-xs font-bold text-slate-800">Stripe Pagamentos</h4>
-                                    <p class="text-[10px] text-slate-400">Fatura 2094 · 07:02</p>
-                                </div>
-                            </div>
-                            <span class="text-xs font-bold text-emerald-600">+R$ 3.150,00</span>
-                        </div>
-                        <!-- Transação 2 -->
-                        <div class="bg-white p-3.5 rounded-2xl flex items-center justify-between border border-slate-100 shadow-sm">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center font-bold text-xs">AN</div>
-                                <div>
-                                    <h4 class="text-xs font-bold text-slate-800">Adaeze Nwachukwu</h4>
-                                    <p class="text-[10px] text-slate-400">Aluguel do estúdio · 09:14</p>
-                                </div>
-                            </div>
-                            <span class="text-xs font-bold text-rose-600">-R$ 420,00</span>
-                        </div>
-                        <!-- Transação 3 -->
-                        <div class="bg-white p-3.5 rounded-2xl flex items-center justify-between border border-slate-100 shadow-sm">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-xs">TA</div>
-                                <div>
-                                    <h4 class="text-xs font-bold text-slate-800">Tobi Adeyemi</h4>
-                                    <p class="text-[10px] text-slate-400">Honorários de design · Ontem</p>
-                                </div>
-                            </div>
-                            <span class="text-xs font-bold text-emerald-600">+R$ 1.250,30</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TELA 2: ENVIAR DINHEIRO -->
-            <div id="screen-send" class="p-6 space-y-6 hidden">
-                <div class="flex items-center space-x-3">
-                    <button onclick="switchScreen('screen-home')" class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600">
-                        <i class="fa-solid fa-chevron-left text-xs"></i>
-                    </button>
-                    <h2 class="text-sm font-bold text-slate-800">Enviar Dinheiro</h2>
-                </div>
-
-                <!-- Input de Busca -->
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
-                        <i class="fa-solid fa-magnifying-glass text-xs"></i>
-                    </span>
-                    <input type="text" placeholder="Nome, @tag ou ID da carteira" class="w-full bg-white border border-slate-200 rounded-xl py-2.5 pl-10 pr-4 text-xs text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20">
-                </div>
-
-                <!-- Atalhos de Contatos -->
-                <div>
-                    <p class="text-[11px] font-semibold text-slate-400 mb-2.5">Enviar para</p>
-                    <div class="flex space-x-4 overflow-x-auto pb-2 scrollbar-none">
-                        <div class="flex flex-col items-center space-y-1">
-                            <div class="w-12 h-12 rounded-full border border-dashed border-slate-300 flex items-center justify-center text-slate-500 bg-white">
-                                <i class="fa-solid fa-plus text-xs"></i>
-                            </div>
-                            <span class="text-[10px] text-slate-600">Novo</span>
-                        </div>
-                        <div class="flex flex-col items-center space-y-1">
-                            <div class="w-12 h-12 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center font-bold text-xs">AN</div>
-                            <span class="text-[10px] text-slate-600">Adaeze</span>
-                        </div>
-                        <div class="flex flex-col items-center space-y-1">
-                            <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs">TA</div>
-                            <span class="text-[10px] text-slate-600">Tobi</span>
-                        </div>
-                        <div class="flex flex-col items-center space-y-1">
-                            <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-xs">ZB</div>
-                            <span class="text-[10px] text-slate-600">Zainab</span>
-                        </div>
-                        <div class="flex flex-col items-center space-y-1">
-                            <div class="w-12 h-12 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-xs">CO</div>
-                            <span class="text-[10px] text-slate-600">Chidi</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Lista de Recipientes -->
-                <div>
-                    <p class="text-[11px] font-semibold text-slate-400 mb-2.5">Contatos recentes</p>
-                    <div class="space-y-2">
-                        <div onclick="switchScreen('screen-amount')" class="bg-white p-3 rounded-2xl flex items-center justify-between border border-slate-100 shadow-sm cursor-pointer hover:border-blue-300 transition">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-9 h-9 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center font-bold text-xs">AN</div>
-                                <div>
-                                    <h4 class="text-xs font-bold text-slate-800">Adaeze Nwachukwu</h4>
-                                    <p class="text-[10px] text-slate-400">@adaeze_n · Enviado -R$ 420,00</p>
-                                </div>
-                            </div>
-                            <i class="fa-solid fa-chevron-right text-[10px] text-slate-300"></i>
-                        </div>
-                        <div class="bg-white p-3 rounded-2xl flex items-center justify-between border border-slate-100 shadow-sm cursor-pointer hover:border-blue-300 transition">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-9 h-9 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-xs">TA</div>
-                                <div>
-                                    <h4 class="text-xs font-bold text-slate-800">Tobi Adeyemi</h4>
-                                    <p class="text-[10px] text-slate-400">@tobi.a · Enviado +R$ 1.250,30</p>
-                                </div>
-                            </div>
-                            <i class="fa-solid fa-chevron-right text-[10px] text-slate-300"></i>
-                        </div>
-                        <div class="bg-white p-3 rounded-2xl flex items-center justify-between border border-slate-100 shadow-sm cursor-pointer hover:border-blue-300 transition">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-9 h-9 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xs">ZB</div>
-                                <div>
-                                    <h4 class="text-xs font-bold text-slate-800">Zainab Bello</h4>
-                                    <p class="text-[10px] text-slate-400">@zainab · ID: 118820</p>
-                                </div>
-                            </div>
-                            <i class="fa-solid fa-chevron-right text-[10px] text-slate-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TELA 3: DIGITAR VALOR -->
-            <div id="screen-amount" class="p-6 space-y-4 hidden flex flex-col justify-between" style="min-height: 700px;">
-                <div>
-                    <div class="flex items-center justify-between mb-4">
+                    <!-- Faixa 1 -->
+                    <div onclick="playSong('Neon Future Beats', 'Synthwave AI', 'https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&w=600&q=80', '3:45')" class="bg-slate-800/70 hover:bg-slate-800 transition p-3 rounded-2xl flex items-center justify-between cursor-pointer border border-slate-700/40">
                         <div class="flex items-center space-x-3">
-                            <button onclick="switchScreen('screen-send')" class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600">
-                                <i class="fa-solid fa-chevron-left text-xs"></i>
-                            </button>
-                            <h2 class="text-sm font-bold text-slate-800">Digite o Valor</h2>
-                        </div>
-                    </div>
-
-                    <!-- Destinatário Selecionado -->
-                    <div class="bg-white border border-slate-100 p-2.5 rounded-2xl flex items-center justify-between shadow-sm mb-6">
-                        <div class="flex items-center space-x-2.5">
-                            <div class="w-8 h-8 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center font-bold text-[11px]">AN</div>
+                            <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&w=150&q=80" class="w-11 h-11 rounded-xl object-cover">
                             <div>
-                                <h4 class="text-xs font-bold text-slate-800">Adaeze Nwachukwu</h4>
-                                <p class="text-[9px] text-slate-400">@adaeze_n</p>
+                                <h4 class="text-xs font-bold">Neon Future Beats</h4>
+                                <p class="text-[11px] text-slate-400">Synthwave AI</p>
                             </div>
                         </div>
-                        <span class="text-[11px] font-semibold text-blue-600 cursor-pointer">Trocar</span>
+                        <div class="text-xs text-slate-400 font-medium">3:45</div>
                     </div>
 
-                    <!-- Seletor de Moeda e Valor -->
-                    <div class="text-center space-y-2">
-                        <div class="inline-flex items-center space-x-1.5 bg-white border border-slate-200 px-3 py-1 rounded-full text-xs font-medium text-slate-700">
-                            <span>BRL</span>
-                            <i class="fa-solid fa-chevron-down text-[9px]"></i>
+                    <!-- Faixa 2 -->
+                    <div onclick="playSong('Lo-Fi Study Rain', 'Chillhop Generator', 'https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=600&q=80', '2:30')" class="bg-slate-800/70 hover:bg-slate-800 transition p-3 rounded-2xl flex items-center justify-between cursor-pointer border border-slate-700/40">
+                        <div class="flex items-center space-x-3">
+                            <img src="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=150&q=80" class="w-11 h-11 rounded-xl object-cover">
+                            <div>
+                                <h4 class="text-xs font-bold">Lo-Fi Study Rain</h4>
+                                <p class="text-[11px] text-slate-400">Chillhop Generator</p>
+                            </div>
                         </div>
-                        <h1 class="text-3xl font-extrabold text-slate-950">R$ 1.250,00</h1>
-                        <p class="text-[11px] text-slate-400">Saldo disponível · R$ 24.850,75</p>
+                        <div class="text-xs text-slate-400 font-medium">2:30</div>
                     </div>
-                </div>
 
-                <!-- Teclado Numérico e Botão Continuar -->
-                <div class="space-y-4">
-                    <div class="grid grid-cols-3 gap-2 text-center">
-                        <div class="bg-white py-3 rounded-xl shadow-sm text-sm font-bold text-slate-800">1</div>
-                        <div class="bg-white py-3 rounded-xl shadow-sm text-sm font-bold text-slate-800">2</div>
-                        <div class="bg-white py-3 rounded-xl shadow-sm text-sm font-bold text-slate-800">3</div>
-                        <div class="bg-white py-3 rounded-xl shadow-sm text-sm font-bold text-slate-800">4</div>
-                        <div class="bg-white py-3 rounded-xl shadow-sm text-sm font-bold text-slate-800">5</div>
-                        <div class="bg-white py-3 rounded-xl shadow-sm text-sm font-bold text-slate-800">6</div>
-                        <div class="bg-white py-3 rounded-xl shadow-sm text-sm font-bold text-slate-800">7</div>
-                        <div class="bg-white py-3 rounded-xl shadow-sm text-sm font-bold text-slate-800">8</div>
-                        <div class="bg-white py-3 rounded-xl shadow-sm text-sm font-bold text-slate-800">9</div>
-                        <div class="bg-white py-3 rounded-xl shadow-sm text-sm font-bold text-slate-800">,</div>
-                        <div class="bg-white py-3 rounded-xl shadow-sm text-sm font-bold text-slate-800">0</div>
-                        <div class="bg-white py-3 rounded-xl shadow-sm text-xs font-bold text-slate-600 flex items-center justify-center"><i class="fa-solid fa-delete-left"></i></div>
-                    </div>
-                    <button onclick="switchScreen('screen-review')" class="w-full bg-blue-600 text-white font-semibold py-3.5 rounded-2xl shadow-lg shadow-blue-600/30 text-xs flex items-center justify-center space-x-2">
-                        <span>Continuar</span>
-                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- TELA 4: REVISAR TRANSFERÊNCIA -->
-            <div id="screen-review" class="p-6 space-y-6 hidden">
-                <div class="flex items-center space-x-3">
-                    <button onclick="switchScreen('screen-amount')" class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600">
-                        <i class="fa-solid fa-chevron-left text-xs"></i>
-                    </button>
-                    <h2 class="text-sm font-bold text-slate-800">Revisar Transferência</h2>
-                </div>
-
-                <div class="bg-white border border-slate-100 p-3 rounded-2xl flex items-center space-x-3 shadow-sm">
-                    <div class="w-10 h-10 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center font-bold text-xs">AN</div>
-                    <div>
-                        <h4 class="text-xs font-bold text-slate-800">Adaeze Nwachukwu</h4>
-                        <p class="text-[10px] text-slate-400">@adaeze_n · Transferência via Riko</p>
-                    </div>
-                </div>
-
-                <div class="text-center py-2">
-                    <h1 class="text-3xl font-extrabold text-slate-950">R$ 1.250,00</h1>
-                    <p class="text-[11px] text-slate-400 mt-1">Valor a enviar</p>
-                </div>
-
-                <div class="bg-white border border-slate-100 rounded-2xl p-4 space-y-3 text-xs shadow-sm">
-                    <div class="flex justify-between text-slate-500">
-                        <span>Taxa de transferência</span>
-                        <span class="font-semibold text-slate-800">R$ 0,00</span>
-                    </div>
-                    <div class="flex justify-between text-slate-500">
-                        <span>Tempo de chegada</span>
-                        <span class="font-semibold text-emerald-600">Instantâneo</span>
-                    </div>
-                    <hr class="border-slate-100">
-                    <div class="flex justify-between text-slate-800 font-bold">
-                        <span>Total</span>
-                        <span>R$ 1.250,00</span>
-                    </div>
-                </div>
-
-                <div class="bg-white border border-slate-100 p-3 rounded-2xl flex items-center justify-between shadow-sm">
-                    <div class="flex items-center space-x-2.5">
-                        <div class="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center text-xs">
-                            <i class="fa-solid fa-wallet"></i>
+                    <!-- Faixa 3 -->
+                    <div onclick="playSong('Cybernetic Symphony', 'Orchestral AI', 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80', '4:15')" class="bg-slate-800/70 hover:bg-slate-800 transition p-3 rounded-2xl flex items-center justify-between cursor-pointer border border-slate-700/40">
+                        <div class="flex items-center space-x-3">
+                            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=150&q=80" class="w-11 h-11 rounded-xl object-cover">
+                            <div>
+                                <h4 class="text-xs font-bold">Cybernetic Symphony</h4>
+                                <p class="text-[11px] text-slate-400">Orchestral AI</p>
+                            </div>
                         </div>
-                        <div>
-                            <h4 class="text-xs font-bold text-slate-800">Carteira Riko BRL</h4>
-                            <p class="text-[10px] text-slate-400">Disponível · R$ 24.850,75</p>
-                        </div>
+                        <div class="text-xs text-slate-400 font-medium">4:15</div>
                     </div>
-                    <i class="fa-solid fa-chevron-right text-[10px] text-slate-300"></i>
-                </div>
-
-                <button onclick="switchScreen('screen-success')" class="w-full bg-blue-600 text-white font-semibold py-3.5 rounded-2xl shadow-lg shadow-blue-600/30 text-xs">
-                    Confirmar e Enviar ✈️
-                </button>
-            </div>
-
-            <!-- TELA 5: TRANSFERÊNCIA BEM-SUCEDIDA -->
-            <div id="screen-success" class="p-6 space-y-6 text-center hidden">
-                <div class="pt-6 flex flex-col items-center">
-                    <div class="w-16 h-16 bg-emerald-500 text-white rounded-full flex items-center justify-center text-2xl shadow-lg shadow-emerald-500/30 mb-4 animate-bounce">
-                        <i class="fa-solid fa-check"></i>
-                    </div>
-                    <h2 class="text-base font-bold text-slate-800">Transferência realizada</h2>
-                    <p class="text-[11px] text-slate-400 mt-1">Seu dinheiro está a caminho — o destinatário recebe na hora.</p>
-                    <h1 class="text-3xl font-extrabold text-slate-950 mt-4">R$ 1.250,00</h1>
-                    <p class="text-[11px] text-slate-500 font-medium mt-1">Enviado para Adaeze Nwachukwu</p>
-                </div>
-
-                <div class="bg-white border border-slate-100 rounded-2xl p-4 space-y-2.5 text-xs text-left shadow-sm">
-                    <div class="flex justify-between">
-                        <span class="text-slate-400">Código</span>
-                        <span class="font-mono font-bold text-slate-800">TXN-88213</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-slate-400">Data e hora</span>
-                        <span class="font-medium text-slate-800">Hoje · 09:41</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-slate-400">Origem</span>
-                        <span class="font-medium text-slate-800">Carteira Riko BRL</span>
-                    </div>
-                </div>
-
-                <div class="space-y-2 pt-2">
-                    <button class="w-full bg-white border border-slate-200 text-slate-700 font-semibold py-3 rounded-xl text-xs flex items-center justify-center space-x-2 shadow-sm">
-                        <i class="fa-solid fa-arrow-down text-[10px]"></i>
-                        <span>Compartilhar recibo</span>
-                    </button>
-                    <button onclick="switchScreen('screen-home')" class="w-full bg-blue-600 text-white font-semibold py-3 rounded-xl text-xs shadow-md shadow-blue-600/20">
-                        Concluído
-                    </button>
-                    <button onclick="switchScreen('screen-send')" class="w-full text-slate-500 font-semibold py-2 text-xs hover:text-slate-800">
-                        Enviar para outro
-                    </button>
                 </div>
             </div>
 
         </div>
 
-        <!-- Barra de Navegação Inferior Fixa (Tab Bar) -->
-        <div class="absolute bottom-0 inset-x-0 bg-white/90 backdrop-blur-md border-t border-slate-100 px-6 py-3 flex justify-between items-center text-xs text-slate-400 z-10">
-            <button onclick="switchScreen('screen-home')" class="flex flex-col items-center text-blue-600">
+        <!-- MENU INFERIOR FIXO -->
+        <div class="absolute bottom-0 left-0 right-0 bg-slate-900/90 backdrop-blur-md border-t border-slate-800/80 px-8 py-3 flex justify-between items-center text-[10px] text-slate-400 z-10">
+            <button class="flex flex-col items-center space-y-1 text-purple-400">
                 <i class="fa-solid fa-house text-sm"></i>
-                <span class="text-[10px] mt-1 font-medium">Início</span>
+                <span>Home</span>
             </button>
-            <button class="flex flex-col items-center hover:text-slate-700">
-                <i class="fa-regular fa-credit-card text-sm"></i>
-                <span class="text-[10px] mt-1">Cartões</span>
+            <button class="flex flex-col items-center space-y-1 hover:text-white transition">
+                <i class="fa-solid fa-wand-magic-sparkles text-sm"></i>
+                <span>Create</span>
             </button>
-            <button onclick="switchScreen('screen-scan')" class="relative -top-3">
-                <div class="w-11 h-11 bg-slate-900 text-white rounded-full flex items-center justify-center shadow-lg shadow-slate-900/40 hover:scale-105 transition">
-                    <i class="fa-solid fa-qrcode text-sm"></i>
-                </div>
+            <button class="flex flex-col items-center space-y-1 hover:text-white transition">
+                <i class="fa-solid fa-heart text-sm"></i>
+                <span>Library</span>
             </button>
-            <button class="flex flex-col items-center hover:text-slate-700">
-                <i class="fa-solid fa-chart-pie text-sm"></i>
-                <span class="text-[10px] mt-1">Extrato</span>
-            </button>
-            <button class="flex flex-col items-center hover:text-slate-700">
-                <i class="fa-regular fa-user text-sm"></i>
-                <span class="text-[10px] mt-1">Perfil</span>
+            <button class="flex flex-col items-center space-y-1 hover:text-white transition">
+                <i class="fa-solid fa-user text-sm"></i>
+                <span>Profile</span>
             </button>
         </div>
 
     </div>
 
-    <!-- Script de Troca de Telas (Simulador do fluxo) -->
+    <!-- Script de Interatividade do Player -->
     <script>
-        function switchScreen(screenId) {
-            // Esconde todas as telas
-            const screens = ['screen-home', 'screen-send', 'screen-amount', 'screen-review', 'screen-success'];
-            screens.forEach(id => {
-                const el = document.getElementById(id);
-                if (el) el.classList.add('hidden');
-            });
-            
-            // Mostra a tela selecionada
-            const target = document.getElementById(screenId);
-            if (target) {
-                target.classList.remove('hidden');
-                document.getElementById('app-container').scrollTop = 0;
+        let isPlaying = false;
+
+        function togglePlay() {
+            isPlaying = !isPlaying;
+            const playIcon = document.getElementById('play-icon');
+            if (isPlaying) {
+                playIcon.className = 'fa-solid fa-pause';
+            } else {
+                playIcon.className = 'fa-solid fa-play ml-0.5';
             }
+        }
+
+        function playSong(title, artist, cover, duration) {
+            document.getElementById('current-title').innerText = title;
+            document.getElementById('current-artist').innerText = artist;
+            document.getElementById('current-cover').src = cover;
+            document.getElementById('total-time').innerText = duration;
+            
+            isPlaying = true;
+            document.getElementById('play-icon').className = 'fa-solid fa-pause';
+            document.getElementById('progress-bar').style.width = '40%';
+            document.getElementById('current-time').innerText = '1:00';
+        }
+
+        function prevTrack() {
+            alert("Música anterior");
+        }
+
+        function nextTrack() {
+            alert("Próxima música");
+        }
+
+        function toggleShuffle() {
+            alert("Modo aleatório ativado/desativado");
+        }
+
+        function toggleRepeat() {
+            alert("Modo repetição ativado/desativado");
         }
     </script>
 </body>
-  </html>
+</html>
